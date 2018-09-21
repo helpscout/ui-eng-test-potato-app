@@ -1,6 +1,6 @@
 # 💪 Challenge
 
-Review the [design spec](./specs/button.md) to see your task.
+**Review the [design spec](./specs/button.md) to see your task.**
 
 To complete this challenge, you will need to use React and almost certainly Javascript and CSS as well.
 
@@ -49,3 +49,7 @@ Feel free to add additional enhancements (e.g. integration ideas, additional int
 
 * Enhancements you made
 * Reasoning/benefits of those enhancements
+
+## 👋 Questions?
+
+If you have any questions, **please don't hesitate to reach out!** (❤️).
