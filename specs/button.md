@@ -45,10 +45,7 @@ We're starting to build out our component system to match the Spectre CSS framew
 * Support loading state, with the ability to indicate success or failure
 * Must work with React Router to link to other app pages
 * Accessible! Accessibility is very important.
-
-## Should haves
-
-* Some documentation
+* Some documentation (A markdown `README.md` would be nice!)
 
 ## Nice to have
 
