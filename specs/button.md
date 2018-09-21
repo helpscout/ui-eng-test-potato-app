@@ -22,7 +22,7 @@ We have Spectre loaded in our Storybook and App! No need to write CSS for these 
 
 ### Links
 
-**Sometimes**, we need to use these buttons as links. The engineers told me we're using [React Router](https://github.com/ReactTraining/react-router). The button has to be able to link to other pages in the app.
+**Sometimes**, we need to use these buttons as links. The engineers told me we're using [React Router](https://github.com/ReactTraining/react-router). The button has to be able to link to other pages in the app. The button should also be able to link external links, like [https://google.com](https://google.com).
 
 ### Loading
 
