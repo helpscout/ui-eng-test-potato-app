@@ -49,15 +49,18 @@ export default class Button extends Component {
   }
 
   render() {
-    const { href, linkComponent, status, onClick, children } = this.props;
+    const { href, linkComponent, status, disabled, onClick, children } = this.props;
 
     if (href) {
       return this.getHtmlLinkComponent();
     } else if (linkComponent) {
       return this.getLinkComponent();
     } else {
+      // Prevent clicking if button is in "loading" status
+      const disabledButton = status === 'loading' ? true : disabled;
+      
       return (
-        <button className={this.computeClassNames()} onClick={onClick}>
+        <button className={this.computeClassNames()} onClick={onClick} disabled={disabledButton}>
           {
             status && (status === 'success' || status === 'error') ?
               (
