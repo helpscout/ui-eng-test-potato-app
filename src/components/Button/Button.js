@@ -15,6 +15,7 @@ const SPECTRE_CLASSNAMES = Object.freeze({
     success: 'btn-success',
     error: 'btn-error',
   },
+  link: 'btn-link',
   loading: 'loading',
 });
 
@@ -42,16 +43,23 @@ export default class Button extends Component {
   }
 
   render() {
-    const { children } = this.props;
-    return (
-      <button className={this.computeClassNames()}>
-        {children}
-      </button>
-    );
+    const { href, target, children, linkComponent } = this.props;
+
+    if (href) {
+      return this.getHtmlLinkComponent();
+    } else if (linkComponent) {
+      return this.getLinkComponent();
+    } else {
+      return (
+        <button className={this.computeClassNames()}>
+          {children}
+        </button>
+      );
+    }
   }
 
   computeClassNames = () => {
-    const { size, type, loading, block } = this.props;
+    const { size, type, loading, block, href, linkComponent } = this.props;
     const classNames = [SPECTRE_CLASSNAMES.button];
 
     // Size
@@ -66,7 +74,37 @@ export default class Button extends Component {
     // Block
     classNames.push(block ? SPECTRE_CLASSNAMES.block : '');
     
+    // Links
+    classNames.push(href || linkComponent ? SPECTRE_CLASSNAMES.link : '');
+
+    
     return classNames.join(' ');
   };
+  
+  getHtmlLinkComponent = () => {
+    const { href, target, children } = this.props;
+    let rel;
+
+    if (target.toLowerCase() === '_blank') {
+      rel = 'noopener';
+    }
+
+    return (
+      <a
+      href={href}
+      target={target ? target : '_self'}
+      rel={rel}
+      className={this.computeClassNames()}>
+        {children}
+      </a>
+    );
+  };
+
+  getLinkComponent = () => {
+    const { linkComponent } = this.props;
+    return (
+      <linkComponent.type {...linkComponent.props} className={this.computeClassNames()}/>
+    );
+  }
 }
 
