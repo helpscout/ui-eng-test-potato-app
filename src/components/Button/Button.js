@@ -17,6 +17,10 @@ const SPECTRE_CLASSNAMES = Object.freeze({
   },
   link: 'btn-link',
   loading: 'loading',
+  icons: {
+    success: 'icon icon-check',
+    error: 'icon icon-cross',
+  }
 });
 
 export default class Button extends Component {
@@ -29,6 +33,7 @@ export default class Button extends Component {
     href: PropTypes.string,
     target: PropTypes.string,
     linkComponent: PropTypes.element,
+    onClick: PropTypes.func,
   }
 
   static defaultProps = {
@@ -40,10 +45,11 @@ export default class Button extends Component {
     href: '',
     target: '',
     linkComponent: undefined,
+    onClick: undefined
   }
 
   render() {
-    const { href, target, children, linkComponent } = this.props;
+    const { href, linkComponent, status, onClick, children } = this.props;
 
     if (href) {
       return this.getHtmlLinkComponent();
@@ -51,15 +57,25 @@ export default class Button extends Component {
       return this.getLinkComponent();
     } else {
       return (
-        <button className={this.computeClassNames()}>
-          {children}
+        <button className={this.computeClassNames()} onClick={onClick}>
+          {
+            status && (status === 'success' || status === 'error') ?
+              (
+                <React.Fragment>
+                  <i className={SPECTRE_CLASSNAMES.icons[status]}></i>{' '}<span className="btn-status-text">{status}</span>
+                </React.Fragment>
+              ) :
+              (
+                children
+              )
+          }
         </button>
       );
     }
   }
 
   computeClassNames = () => {
-    const { size, type, loading, block, href, linkComponent } = this.props;
+    const { size, type, status, block, href, linkComponent } = this.props;
     const classNames = [SPECTRE_CLASSNAMES.button];
 
     // Size
@@ -68,15 +84,18 @@ export default class Button extends Component {
     // Type
     classNames.push(SPECTRE_CLASSNAMES.type[type]);
     
-    // Loading
-    classNames.push(loading ? SPECTRE_CLASSNAMES.loading : '');
-    
     // Block
     classNames.push(block ? SPECTRE_CLASSNAMES.block : '');
     
     // Links
     classNames.push(href || linkComponent ? SPECTRE_CLASSNAMES.link : '');
 
+    // Status
+    if (status === 'loading') {
+      classNames.push(SPECTRE_CLASSNAMES.loading);
+    } else if (status === 'success' || status === 'error') {
+      classNames.push(SPECTRE_CLASSNAMES.type[status]);
+    }
     
     return classNames.join(' ');
   };
