@@ -1,79 +1,137 @@
-# 🥔 Potato App
+# Help Scout Button React Component
+A `<Button>` component made with React with a straightforward interface and styles from [spectre.css](https://picturepan2.github.io/spectre/elements.html#buttons).
 
-> UI Engineer Hiring Project (Engineering Team)
+## Location in repo
+Component: `src/components/Button/`
+Stories: `stories/Button.stories.js`
 
-## 💪 Challenge
+## Usage
+Component API:
 
-Check out the [challenge notes](./challenge.md) for details on project requirements and submission.
+| Prop          | Type          | Default   | Description                                                                                                                                                                                                  |
+|---------------|---------------|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| size          | enum[string]  | "normal"  | Size of the button. One of: "small", "normal", "large"                                                                                                                                                       |
+| block         | boolean       | false     | Makes the button a block-level element which will fill the width of its container                                                                                                                            |
+| type          | enum[string]  | "default" | Button type. One of: "default", "primary", "success", "error"                                                                                                                                                |
+| disabled      | boolean       | false     | Enable or disable the button                                                                                                                                                                                 |
+| status        | enum[string]  | undefined | Allows the button to show a loading indicator when performing an action and whether the action was successful or failed. Possible values: "loading", "success", "error"                                      |
+| href          | string        | ""        | When provided the component will render as an `<a>`,instead of a `<button>`                                                                                                                                  |
+| target        | string        | ""        |  `<a>` target attribute, i.e."_blank". Note: For security reasons, when "_blank is provided <Button> will add the `rel="noopener"` attribute to the link To override, pass your own value in a `rel` prop.   |
+| linkComponent | LinkComponent | undefined | Accepts a `<Link>` Component from React Router or similar, when provided `<Button>` will render that component with the proper classes instead of creating its own.                                          |
+| onClick       | function      | undefined | The function to execute on click                                                                                                                                                                             |
 
+## Examples
 
-## 🛠 Prerequisite
+### Normal button
+```jsx
+{/* React */}
+<Button
+  size="small"
+  type="primary"
+>
+	<i class="icon icon-arrow-left"></i> Button
+</Button>
 
-* [React](https://reactjs.org/)
-* [Storybook](https://storybook.js.org/)
-
-A working Node dev environment ([LTS](https://nodejs.org/en/) recommended). This project was scaffolded with [Create React App](https://github.com/facebook/create-react-app?files=1). CRA uses [Yarn](https://yarnpkg.com/en/) out-of-the-box. You don't have to use Yarn. [npm](https://www.npmjs.com/) works just fine 👍.
-
-
-## 🔧 Setup
-
-Fork/clone/download this repo it to your computer.
-
-Go into that directory and install dependencies by running:
-
-```
-yarn
-```
-
-Or:
-
-```
-npm install
-```
-
-
-## 📂 File structure
-
-Below are notable folders in this project:
-
-```
-/ui-eng-test-potato-app
-|- src/
-|   \- components/
-\- stories/
+{/* Returns */}
+<button class="btn btn-primary btn-sm">
+	<i class="icon icon-arrow-left"></i> Button
+</button>
 ```
 
-#### `components`
+### Disabled button
+```jsx
+{/* React */}
+<Button
+  size="large"
+  type="primary"
+  disabled={this.state.CTADisabled}
+>
+	<i class="icon icon-arrow-left"></i> Button
+</Button>
 
-The component files will be located under `src/components`.
-
-#### `stories`
-
-The [Storybook](https://storybook.js.org/) files are located under `stories/`
-
-
-## 🕹 Development
-
-This project is basically an out-of-the-box Create React App project, that was generated via `create-react-app`.
-
-Fire up the local Storybook server by running:
-
-```
-yarn run storybook
+{/* Returns */}
+<button class="btn btn-primary btn-lg" disabled>Click!</button>
 ```
 
-Visit the dev environment at [http://localhost:9009/](http://localhost:9009/).
+### Link
+```jsx
+{/* React */}
+<Button
+  size="small"
+  href="https://github.com"
+  target="_blank"
+>
+	Go to Github
+</Button>
 
-## ⚗️ Testing
-
-The only test suite set up is powered by Jest. To get that setup, install dependencies by running:
-
+{/* Returns */}
+<a href="https://github.com" class="btn btn-link" target="_blank" rel="noopener">
+	Go to Github
+</a>
 ```
-yarn
+
+### React Router Link
+```jsx
+{/* React */}
+const MyLink = <Link to="/about">About</Link>;
+
+<Button linkComponent={MyLink} />
+
+{/* Returns */}
+<Link class="btn btn-link" to="/about">About</Link>
 ```
 
-To run the tests, run this command:
+### Actions and status
+When performing an action, you can reflect the status on the button itself by using the `status` prop.
+The button type gets automatically handled by <Button>.
+Example:
 
+```javascript
+// somewhere in the component
+handleClick = () => {
+  this.setState({
+    fetchingDataStatus: 'loading'
+  });
+  
+  fetch(URL)
+    .then(response => response.json())
+    .then(json => {
+      this.setState({
+        data: json,
+        fetchingDataStatus: 'success',
+      });
+    })
+    .catch(error => {
+      this.setState({
+        fetchingDataStatus: 'error'
+      });
+    });
+};
 ```
-yarn run test
+```jsx
+{/* React */}
+<Button
+  size="large"
+  type="primary"
+  onClick={this.handleClick}
+  status={this.state.fetchingDataStatus}
+>
+  Click!
+</Button>
+
+{/* Returns */}
+{/* loading */}
+<button class="btn btn-primary btn-lg loading" disabled></button>
+
+{/* success */}
+<button class="btn btn-success btn-lg">
+  <i class="icon icon-check"></i>
+  <span className="btn-status-text">Success</span>
+</button>
+
+{/* error */}
+<button class="btn btn-error btn-lg">
+  <i class="icon icon-cross"></i>
+  <span className="btn-status-text">Error</span>
+</button>
 ```
