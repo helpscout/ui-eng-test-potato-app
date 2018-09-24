@@ -22,13 +22,14 @@ For Router Links (like React Router) `<Button>` accepts a `linkComponent` prop a
 
 ## Accesibility
 Because I'm using the proper semantic elements for each use, the button is accesible out of the box.
+Active, focus and hover styles are handled by Spectre.css
 
 See more on [README](/README.md)
 
 ## Things I would do with more time
 * Add tests
 * I would like to add the capability of the button to handle the status state internally, this could be done by detecting if the onClick action passed returns a promise.
-* There are a bunch of attributes on the `button` or `a` tags that exist (like title, hreflang, referrerpolicy, etc) that would not get applied to the element returned by `<Button>`, I would like to address this, but I don't like the idea of spreading all props passed (...props).
+* There are a bunch of attributes on the `button` or `a` tags that exist (like title, hreflang, referrerpolicy, etc) that would not get applied to the element returned by `<Button>`, I would like to address this, but I don't like the idea of spreading all props passed (...props) I'm unsure if there is a better pattern for this. Same for other events.
 * I would like to add nice animated transitions
 * Add the ability to customize the success and error messages on the button
 * I didn't know how to hook the whole "status" interaction in StoryBook, I added an example on the App.js, you can check it out by running `yarn start`
