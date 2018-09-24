@@ -31,12 +31,12 @@ statusStories.add('Disabled', () => <Button onClick={action('button-click')} dis
 
 const htmlLinkStories = storiesOf('Button/HTML Link', module)
 
-htmlLinkStories.add('Button as HTML link', () => <Button onClick={action('button-click')} href="https://github.com">Go to github</Button>)
+htmlLinkStories.add('Button as HTML link', () => <Button href="https://github.com">Go to github</Button>)
 
 const linkComponentStories = storiesOf('Button/Link Component', module)
 
 linkComponentStories.add('React Router Link', () => (
   <Router>
-    <Button onClick={action('button-click')} linkComponent={<Link to="/about">About (This is a react router link)</Link>} />
+    <Button linkComponent={<Link to="/about">About (This is a react router link)</Link>} />
   </Router>
 ))
