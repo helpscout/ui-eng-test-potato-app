@@ -105,17 +105,17 @@ export default class Button extends Component {
   
   getHtmlLinkComponent = () => {
     const { href, target, rel, children } = this.props;
-    let rel;
+    let relAttr;
 
     if (target.toLowerCase() === '_blank') {
-      rel = rel || 'noopener';
+      relAttr = rel || 'noopener';
     }
 
     return (
       <a
       href={href}
       target={target ? target : '_self'}
-      rel={rel}
+      rel={relAttr}
       className={this.computeClassNames()}>
         {children}
       </a>
