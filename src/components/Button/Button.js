@@ -58,7 +58,7 @@ export default class Button extends Component {
     } else {
       // Prevent clicking if button is in "loading" status
       const disabledButton = status === 'loading' ? true : disabled;
-      
+
       return (
         <button className={this.computeClassNames()} onClick={onClick} disabled={disabledButton}>
           {
@@ -104,11 +104,11 @@ export default class Button extends Component {
   };
   
   getHtmlLinkComponent = () => {
-    const { href, target, children } = this.props;
+    const { href, target, rel, children } = this.props;
     let rel;
 
     if (target.toLowerCase() === '_blank') {
-      rel = 'noopener';
+      rel = rel || 'noopener';
     }
 
     return (
