@@ -34,6 +34,7 @@ See more on [README](/README.md)
 * Add the ability to customize the success and error messages on the button
 * I didn't know how to hook the whole "status" interaction in StoryBook, I added an example on the App.js, you can check it out by running `yarn start`
 * Add JSDocs
+* Be smarter if used in forms (add the "type" attr for example), perhaps have another mode (`<input type="submit">`).
 
 ## Suggestions
 * I hadn't use StoryBook before, I like the look of the "knob", "jsx" and "info" addons, I would add them
