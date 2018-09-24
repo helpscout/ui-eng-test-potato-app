@@ -13,6 +13,32 @@ class App extends Component {
     button2Status: undefined,
   };
 
+  render() {
+    const { button1Status, button2Status } = this.state;
+    
+    return (
+      <div className="container" style={{padding: '100px'}}>
+        <div style={{marginBottom: '15px'}}>
+          <Button size="small" onClick={this.handleClickResolve} status={button1Status}>This will succeed</Button>
+        </div>
+        <div style={{marginBottom: '15px'}}>
+          <Button size="small" onClick={this.handleClickReject} status={button2Status}>This will fail</Button>
+        </div>
+        <div style={{marginBottom: '15px'}}>
+          <Button href="https://github.com" target="_blank">Go to github</Button>
+        </div>
+        <div style={{marginBottom: '15px'}}>
+          <Button type="primary" loading>Button numero 2</Button>
+        </div>
+        <div style={{marginBottom: '15px'}}>
+          <Router>
+            <Button linkComponent={<Link to="/about">About</Link>}>Button numero 2</Button>
+          </Router>
+        </div>
+      </div>
+    );
+  }
+
   handleClickResolve = () => {
     this.setState({
       button1Status: 'loading'
@@ -45,32 +71,6 @@ class App extends Component {
       });
     })
   };
-
-  render() {
-    const { button1Status, button2Status } = this.state;
-    
-    return (
-      <div className="container" style={{padding: '100px'}}>
-        <div style={{marginBottom: '15px'}}>
-          <Button size="small" onClick={this.handleClickResolve} status={button1Status}>This will succeed</Button>
-        </div>
-        <div style={{marginBottom: '15px'}}>
-          <Button size="small" onClick={this.handleClickReject} status={button2Status}>This will fail</Button>
-        </div>
-        <div style={{marginBottom: '15px'}}>
-          <Button href="https://github.com" target="_blank">Go to github</Button>
-        </div>
-        <div style={{marginBottom: '15px'}}>
-          <Button type="primary" loading>Button numero 2</Button>
-        </div>
-        <div style={{marginBottom: '15px'}}>
-          <Router>
-            <Button linkComponent={<Link to="/about">About</Link>}>Button numero 2</Button>
-          </Router>
-        </div>
-      </div>
-    );
-  }
 }
 
 export default App;
